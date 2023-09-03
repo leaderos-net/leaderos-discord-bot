@@ -67,7 +67,7 @@ client.on("messageCreate", async(message) => {
     if(message.channel.parent.id != client.settings.categoryID) return;
     var isStaff = false
     if(client.settings.staffRoleIDs.some(r => message.member.roles.cache.has(r))) isStaff = true
-    var userData = (await db.get("userDatas")).find(b => b.discordUserID === message.author.id)
+    var userData = (await db.get("userDatas")).find(data => data.discordUserID === message.author.id)
     if(!userData) {
         message.channel.send("<@"+message.author.id+"> "+texts.notSynced).then(msg => setTimeout(() => { msg.delete() }, 5000))
         return message.delete()
