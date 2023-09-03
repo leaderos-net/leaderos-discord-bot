@@ -19,11 +19,11 @@ const { QuickDB } = require("quick.db");
 const db = new QuickDB();
 const texts = require("./utils/getLang.js")();
 
-client.login(config.general.botToken)
+client.login(config.general.botToken) //Giriş yapma
 
 libs.getSettings().then(data => {
     client.settings = data
-})
+}) //Ayarları yükleme
 
 
 const commands = []
@@ -34,7 +34,8 @@ for (const file of files) {
     const cmd = require("./commands/"+file)
     client.commands.set(cmd.data.name, cmd)
     commands.push(cmd.data)
-}
+} //Komutları yükleme
+
 client.on("ready", async() => {
     console.log("BOT: Logged in as " + client.user.username)
     client.user.setStatus("idle")
@@ -58,7 +59,7 @@ client.on("interactionCreate", async(interaction) => {
     if(cmd) {
         cmd.run(client, interaction)
     }
-})
+}) //Komut kullanıldığında açılışta yüklenen komutu bul ve çalıştır
 
 client.on("messageCreate", async(message) => {
     if(message.author.bot) return;
