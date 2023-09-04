@@ -15,7 +15,7 @@ const client = new Discord.Client({
   ],
 });
 const fs = require('fs');
-const libs = require('./libs/axios.js');
+const api = require('./libs/axios.js');
 const { QuickDB } = require('quick.db');
 const db = new QuickDB();
 
@@ -24,36 +24,49 @@ client.login(config.general.botToken);
 client.db = db;
 
 // Load settings
-libs.getSettings().then((data) => {
+api.getSettings().then((data) => {
   client.settings = data;
-});
 
-// Load modules
-const modules = ['support', 'roles'];
-console.log('Loading ' + modules.length + ' modules.');
-modules.map((module) => {
-  require(`./modules/${module}.js`)(client);
+  // Load modules
+  const modules = [
+    {
+      name: 'roleSyncing',
+      status: client.settings.roleSyncingStatus,
+    },
+    {
+      name: 'support',
+      status: client.settings.ticketStatus,
+    },
+  ];
+  console.log(`Loading ${modules.length} modules.`);
+  let moduleCount = 0;
+  modules.map((module) => {
+    if (!module.status) return;
+
+    moduleCount++;
+    require(`./modules/${module.name}.js`)(client);
+  });
+  console.log(`${moduleCount} modules loaded.`);
 });
-console.log('Modules loaded.');
 
 // Load Commands
 const commands = [];
 client.commands = new Discord.Collection();
 
 const files = fs
-  .readdirSync(__dirname + '/commands')
+  .readdirSync(`${__dirname}/commands`)
   .filter((file) => file.endsWith('.js'));
-console.log('Loading ' + files.length + ' commands.');
+console.log(`Loading ${files.length} commands.`);
 
 files.map((file) => {
-  const cmd = require('./commands/' + file);
+  const cmd = require(`./commands/${file}`);
   client.commands.set(cmd.data.name, cmd);
   commands.push(cmd.data);
 });
 
 // Initialize bot
 client.on('ready', async () => {
-  console.log('BOT: Logged in as ' + client.user.username);
+  console.log(`BOT: Logged in as ${client.user.username}`);
 
   client.user.setStatus('idle');
   client.user.setActivity('LEADEROS');
