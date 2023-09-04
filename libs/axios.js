@@ -31,7 +31,7 @@ module.exports.sendTicketMessage = async (
 
 // Close the support ticket
 module.exports.closeTicket = async (ticketID) => {
-  await instance.get('/api/support/tickets/' + ticketID + '/close');
+  await instance.post('/api/support/tickets/' + ticketID + '/close');
 };
 
 // Get settings
