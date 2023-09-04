@@ -1,4 +1,5 @@
 module.exports = {
+  noPermission: 'Bunu yapmak için yetkiniz yok!',
   updated: 'Ayarlar güncellendi.',
   notSynced: 'Önce hesabını eşlemelisin.',
   ticketClosing: 'Talep kapatılıyor...',

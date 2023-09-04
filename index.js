@@ -53,12 +53,12 @@ api.getSettings().then((data) => {
 const commands = [];
 client.commands = new Discord.Collection();
 
-const files = fs
+const commandFiles = fs
   .readdirSync(`${__dirname}/commands`)
   .filter((file) => file.endsWith('.js'));
-console.log(`Loading ${files.length} commands.`);
+console.log(`Loading ${commandFiles.length} commands.`);
 
-files.map((file) => {
+commandFiles.map((file) => {
   const cmd = require(`./commands/${file}`);
   client.commands.set(cmd.data.name, cmd);
   commands.push(cmd.data);
@@ -77,7 +77,7 @@ client.on('ready', async () => {
   rest
     .put(Discord.Routes.applicationCommands(client.user.id), { body: commands })
     .then(() => {
-      console.log('Commands loaded.');
+      console.log(`${commandFiles.length} commands loaded.`);
     });
 
   // Initialize database

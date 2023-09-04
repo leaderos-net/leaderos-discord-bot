@@ -62,12 +62,28 @@ module.exports = async (client) => {
     if (interaction.channel.parent.id != client.settings.ticketCategoryID)
       return;
 
+    // Check if clicked by staff
+    const isStaff = client.settings.ticketStaffRoleIDs.some((staffRoleID) =>
+      interaction.member.roles.cache.has(staffRoleID)
+    );
+    if (!isStaff) {
+      const noPermissionEmbed = new Discord.EmbedBuilder()
+        .setDescription(t.noPermission)
+        .setColor('Red');
+      await interaction.reply({
+        embeds: [noPermissionEmbed],
+        ephemeral: true,
+      });
+
+      return;
+    }
+
     await interaction.deferUpdate();
 
     // Send closing embed message
     const embed = new Discord.EmbedBuilder()
       .setDescription(t.ticketClosing)
-      .setColor('Blurple');
+      .setColor('Orange');
     await interaction.channel.send({ embeds: [embed] });
 
     // Get ticket ID from channel name
