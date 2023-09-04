@@ -24,6 +24,8 @@ libs.getSettings().then(data => {
     client.settings = data
 }) //Ayarları yükleme
 
+require("./modules/support.js")(client);
+require("./modules/roles.js")(client);
 
 const commands = []
 client.commands = new Discord.Collection();
