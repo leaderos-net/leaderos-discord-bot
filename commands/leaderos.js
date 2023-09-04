@@ -1,22 +1,28 @@
-const Discord = require("discord.js");
-const libs = require("../libs/axios.js");
-const texts = require("../utils/getLang.js")();
+const Discord = require('discord.js');
+const libs = require('../libs/axios.js');
+const t = require('../utils/getTranslation.js')();
 
-exports.run = async(client, interaction) => {
-    var settings = await libs.getSettings()
-    client.settings = settings
+// Handle command
+exports.run = async (client, interaction) => {
+  const settings = await libs.getSettings();
+  client.settings = settings;
 
-    interaction.reply({ content: texts.updated, ephemeral: true })
-}
+  interaction.reply({
+    content: t.updated,
+    ephemeral: true,
+  });
+};
 
+// Register command
 const cmd = new Discord.SlashCommandBuilder()
-.setName("leaderos")
-.setDescription("LeaderOS")
-.setDMPermission(false)
-.setDefaultMemberPermissions(8)
-.addSubcommand(new Discord.SlashCommandSubcommandBuilder()
-    .setName("update-settings")
-    .setDescription("Updates client's settings.")
-)
+  .setName('leaderos')
+  .setDescription('LeaderOS')
+  .setDMPermission(false)
+  .setDefaultMemberPermissions(8)
+  .addSubcommand(
+    new Discord.SlashCommandSubcommandBuilder()
+      .setName('update-settings')
+      .setDescription(t.commands.leaderos.updateSettings.description)
+  );
 
-exports.data = cmd.toJSON()
+exports.data = cmd.toJSON();
