@@ -12,6 +12,11 @@ module.exports = {
     profile: {
       description: 'Shows your profile.',
       title: 'My Profile',
+      embed: {
+        username: 'Username',
+        email: 'Email',
+        credits: 'Credits',
+      },
     },
   },
 };

@@ -12,6 +12,11 @@ module.exports = {
     profile: {
       description: 'Profilinizi gösterir.',
       title: 'Profilim',
+      embed: {
+        username: 'Kullanıcı Adı',
+        email: 'E-Posta',
+        credits: 'Kredi',
+      },
     },
   },
 };

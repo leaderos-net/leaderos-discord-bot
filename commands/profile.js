@@ -22,7 +22,20 @@ exports.run = async (client, interaction) => {
 
   const embed = new Discord.EmbedBuilder()
     .setTitle(t.commands.profile.title)
-    .setDescription('Username: `' + userInfo.realname + '`\nEmail: `' + userInfo.email + '`\nCredit: `' + userInfo.credit + '`')
+    .setDescription(
+      t.commands.profile.embed.username +
+        ': `' +
+        userInfo.realname +
+        '`\n' +
+        t.commands.profile.embed.email +
+        ': `' +
+        userInfo.email +
+        '`\n' +
+        t.commands.profile.embed.credits +
+        ': `' +
+        userInfo.credit +
+        '`'
+    )
     .setThumbnail(`https://minotar.net/helm/${userInfo.realname}`)
     .setColor(1632000);
 
