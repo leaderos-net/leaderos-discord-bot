@@ -42,7 +42,7 @@ module.exports = async (client) => {
     const ticketID = getTicketId(message.channel.name);
 
     // Send message to ticket
-    api.sendTicketMessage(ticketID, userData.id, isStaff, message.content);
+    api.sendTicketMessage(ticketID, userDataCache.id, isStaff, message.content);
   });
 
   // Handle on click to close ticket button

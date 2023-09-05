@@ -61,10 +61,10 @@ module.exports = async (client) => {
   // Give synced role to member which is synced on website
   client.on('guildMemberAdd', async (member) => {
     // Check if user is synced in cache
-    const userInfoCache = await userData.get(member.user.id);
+    const userDataCache = await userData.get(member.user.id);
 
     // Check if user is synced on website
-    if (!userInfoCache) {
+    if (!userDataCache) {
       const userInfo = await api.getUserInfo(member.user.id);
 
       // If user is not synced on website, do nothing

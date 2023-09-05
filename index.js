@@ -83,7 +83,7 @@ client.on('ready', async () => {
     });
 
   // Initialize database data
-  if (!(await db.get('users'))) await db.set('users', []);
+  if (!(await db.get('users'))) await db.set('users', {});
 });
 
 // Command Handler
