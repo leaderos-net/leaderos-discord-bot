@@ -9,5 +9,9 @@ module.exports = {
         description: 'Botun ayarlarını günceller.',
       },
     },
+    profile: {
+      description: 'Profilinizi gösterir.',
+      title: 'Profilim',
+    },
   },
 };

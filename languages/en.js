@@ -9,5 +9,9 @@ module.exports = {
         description: "Updates client's settings.",
       },
     },
+    profile: {
+      description: 'Shows your profile.',
+      title: 'My Profile',
+    },
   },
 };
