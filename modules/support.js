@@ -5,8 +5,6 @@ const userData = require('../utils/userData.js');
 const t = require('../utils/getTranslation.js')();
 
 module.exports = async (client) => {
-  const db = client.db;
-
   // Handle on send message to ticket channel
   client.on('messageCreate', async (message) => {
     // Check if message is sent by bot
