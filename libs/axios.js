@@ -3,7 +3,7 @@ const config = require('../config.js');
 
 // Create axios instance
 const instance = axios.create({
-  baseURL: config.general.wesiteUrl,
+  baseURL: config.general.websiteUrl,
   headers: {
     'X-API-KEY': config.general.apiKey,
   },
