@@ -22,7 +22,8 @@ exports.run = async (client, interaction) => {
 
   const embed = new Discord.EmbedBuilder()
     .setTitle(t.commands.profile.title)
-    .setDescription('Username: ' + userInfo.realname)
+    .setDescription('Username: `' + userInfo.realname + '`\nEmail: `' + userInfo.email + '`\nCredit: `' + userInfo.credit + '`')
+    .setThumbnail(`https://minotar.net/helm/${userInfo.realname}`)
     .setColor(1632000);
 
   interaction.reply({
