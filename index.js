@@ -17,10 +17,12 @@ const client = new Discord.Client({
 const fs = require('fs');
 const api = require('./libs/axios.js');
 const { QuickDB } = require('quick.db');
-const db = new QuickDB();
 
 // Access to client
 client.login(config.general.botToken);
+
+// Initialize DB
+const db = new QuickDB();
 client.db = db;
 
 // Load settings
@@ -80,8 +82,8 @@ client.on('ready', async () => {
       console.log(`${commandFiles.length} commands loaded.`);
     });
 
-  // Initialize database
-  if (!(await db.get('userDatas'))) await db.set('userDatas', []);
+  // Initialize database data
+  if (!(await db.get('users'))) await db.set('users', []);
 });
 
 // Command Handler

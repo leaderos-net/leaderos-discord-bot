@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 const api = require('../libs/axios.js');
+const getTicketId = require('../utils/getTicketId.js');
+const userData = require('../utils/userData.js');
 const t = require('../utils/getTranslation.js')();
 
 module.exports = async (client) => {
@@ -22,12 +24,10 @@ module.exports = async (client) => {
     );
 
     // Get user data from cache
-    const userData = (await db.get('userDatas')).find(
-      (data) => data.discordUserID === message.author.id
-    );
+    const userDataCache = await userData.get(message.author.id);
 
     // If user is not synced, do nothing and delete message
-    if (!userData) {
+    if (!userDataCache) {
       message.channel
         .send('<@' + message.author.id + '> ' + t.notSynced)
         .then((msg) =>
@@ -39,15 +39,10 @@ module.exports = async (client) => {
     }
 
     // Get ticket ID from channel name
-    const ticketID = message.channel.name.replace('ticket-', '');
+    const ticketID = getTicketId(message.channel.name);
 
     // Send message to ticket
-    api.sendTicketMessage(
-      ticketID,
-      userData.accountID,
-      isStaff,
-      message.content
-    );
+    api.sendTicketMessage(ticketID, userData.id, isStaff, message.content);
   });
 
   // Handle on click to close ticket button
@@ -87,7 +82,7 @@ module.exports = async (client) => {
     await interaction.channel.send({ embeds: [embed] });
 
     // Get ticket ID from channel name
-    const ticketID = interaction.channel.name.replace('ticket-', '');
+    const ticketID = getTicketId(interaction.channel.name);
 
     // Delete channel
     setTimeout(() => {

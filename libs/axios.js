@@ -4,7 +4,9 @@ const config = require('../config.js');
 // Create axios instance
 const instance = axios.create({
   baseURL: config.general.wesiteUrl,
-  headers: { 'X-API-KEY': config.general.apiKey },
+  headers: {
+    'X-API-KEY': config.general.apiKey,
+  },
 });
 
 // Send message to support ticket
@@ -15,7 +17,7 @@ module.exports.sendTicketMessage = async (
   message
 ) => {
   await instance.post(
-    '/api/support/tickets/' + ticketID + '/messages',
+    `/api/support/tickets/${ticketID}/messages`,
     {
       userID: accountID,
       message: message,
@@ -31,7 +33,7 @@ module.exports.sendTicketMessage = async (
 
 // Close the support ticket
 module.exports.closeTicket = async (ticketID) => {
-  await instance.post('/api/support/tickets/' + ticketID + '/close');
+  await instance.post(`/api/support/tickets/${ticketID}/close`);
 };
 
 // Get settings
@@ -43,7 +45,13 @@ module.exports.getSettings = async () => {
 // Get user data
 module.exports.getUserInfo = async (discordUserID) => {
   const { data } = await instance.get(
-    '/api/integrations/discord/users/' + discordUserID
+    `/api/integrations/discord/users/${discordUserID}`
   );
+  return data;
+};
+
+// Get roles
+module.exports.getUserRoles = async (userID) => {
+  const { data } = await instance.get(`/api/users/${userID}/roles`);
   return data;
 };
