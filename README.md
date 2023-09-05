@@ -2,31 +2,31 @@
 
 ## Installation
 
-#### 1. Install [Node.js](https://nodejs.org/en/download/)
+1. Install [Node.js](https://nodejs.org/en/download/)
 
-#### 2. Install [Git](https://git-scm.com/downloads)
+2. Install [Git](https://git-scm.com/downloads)
 
-#### 3. Clone the repository:
+3. Clone the repository:
 
 ```
 git clone https://github.com/leaderos-net/leaderos-discord-bot
 ```
 
-#### 4. Go to the repository folder:
+4. Go to the repository folder:
 
 ```
 cd leaderos-discord-bot
 ```
 
-#### 5. Install dependencies:
+5. Install dependencies:
 
 ```
 npm install
 ```
 
-#### 6. Configure the bot in `config.js`
+6. Configure the bot in `config.js`
 
-#### 7. Run the bot:
+7. Run the bot:
 
 ```
 npm run start
