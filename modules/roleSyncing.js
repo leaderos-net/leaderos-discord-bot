@@ -2,6 +2,29 @@ const api = require('../libs/axios.js');
 const userData = require('../utils/userData.js');
 
 module.exports = async (client) => {
+  // Temp roles checker
+  setInterval(async () => {
+    await userData
+      .getAll() // Get all users from cache
+      .filter((user) => user.tempRoles.length > 0) // Filter users which have temp roles
+      .forEach(async (user) => {
+        user.tempRoles
+          .filter((role) => new Date(role.expiryDate) < new Date()) // Filter roles which are expired
+          .forEach((role) => {
+            // Remove role from member
+            const member = client.guild.members.cache.get(user.id);
+            member.roles.remove(role.roleID);
+
+            // Remove role from cache
+            const newUser = user;
+            newUser.tempRoles = user.tempRoles.filter(
+              (tempRole) => tempRole.roleID !== role.roleID
+            );
+            userData.set(user.id, newUser);
+          });
+      });
+  }, 1000 * roleSyncCachePeriod);
+
   // Handle member gets synced role
   client.on('guildMemberUpdate', async (oldMemberData, newMemberData) => {
     // If member gets a new role
@@ -21,14 +44,38 @@ module.exports = async (client) => {
         // If user is not synced on website, do nothing
         if (!userInfo) return;
 
+        // User website roles which have discord role id
+        const userRoles = userInfo.roles.filter((role) => role.discordRoleID);
+
+        // Create temp roles array
+        const tempRoles = [];
+        userRoles
+          .filter(
+            (role) =>
+              role.expiryDate !== '1000-01-01 00:00:00' &&
+              new Date(role.expiryDate) > new Date()
+          ) // Filter roles which have expiry date and is not expired
+          .forEach(
+            (role) =>
+              tempRoles.push({
+                roleID: role.discordRoleID,
+                expiryDate: role.expiryDate,
+              }) // Push roles to temp roles array
+          );
+
         // Add user to cache
         userData.add(newMemberData.user.id, {
           id: userInfo.id,
+          tempRoles,
         });
 
         // Add website roles to member
-        userInfo.roles
-          .filter((role) => role.discordRoleID)
+        userRoles
+          .filter(
+            (role) =>
+              role.expiryDate === '1000-01-01 00:00:00' ||
+              new Date(role.expiryDate) > new Date()
+          ) // Filter roles which have no expiry date or is not expired
           .forEach((role) => newMemberData.roles.add(role.discordRoleID));
 
         if (client.settings.setNicknameStatus) {

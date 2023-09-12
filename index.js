@@ -28,6 +28,7 @@ client.db = db;
 // Load settings
 api.getSettings().then((data) => {
   client.settings = data;
+  client.guild = client.guilds.cache.get(client.settings.guildID);
 
   // Load modules
   const modules = [
