@@ -9,8 +9,8 @@ module.exports = async (client) => {
     console.log(client.guild);
     const users = Object.entries(await userData.getAll());
     users
-      .filter(([discordUserID, user] = data) => user.tempRoles.length > 0) // Filter users which have temp roles
-      .forEach(async ([discordUserID, user] = data) => {
+      .filter(([discordUserID, user]) => user.tempRoles.length > 0) // Filter users which have temp roles
+      .forEach(async ([discordUserID, user]) => {
         user.tempRoles
           .filter((role) => new Date(role.expiryDate) < new Date()) // Filter roles which are expired
           .forEach((role) => {
