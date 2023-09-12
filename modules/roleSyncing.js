@@ -1,18 +1,21 @@
+const config = require('../config.js');
 const api = require('../libs/axios.js');
 const userData = require('../utils/userData.js');
 
 module.exports = async (client) => {
   // Temp roles checker
   setInterval(async () => {
-    await userData
-      .getAll() // Get all users from cache
-      .filter((user) => user.tempRoles.length > 0) // Filter users which have temp roles
-      .forEach(async (user) => {
+    // Get all users from cache
+    console.log(client.guild);
+    const users = Object.entries(await userData.getAll());
+    users
+      .filter(([discordUserID, user] = data) => user.tempRoles.length > 0) // Filter users which have temp roles
+      .forEach(async ([discordUserID, user] = data) => {
         user.tempRoles
           .filter((role) => new Date(role.expiryDate) < new Date()) // Filter roles which are expired
           .forEach((role) => {
             // Remove role from member
-            const member = client.guild.members.cache.get(user.id);
+            const member = client.guild.members.cache.get(discordUserID);
             member.roles.remove(role.roleID);
 
             // Remove role from cache
@@ -20,10 +23,10 @@ module.exports = async (client) => {
             newUser.tempRoles = user.tempRoles.filter(
               (tempRole) => tempRole.roleID !== role.roleID
             );
-            userData.set(user.id, newUser);
+            userData.set(discordUserID, newUser);
           });
       });
-  }, 1000 * roleSyncCachePeriod);
+  }, 1000 * config.general.roleSyncCachePeriod);
 
   // Handle member gets synced role
   client.on('guildMemberUpdate', async (oldMemberData, newMemberData) => {

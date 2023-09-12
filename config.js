@@ -5,6 +5,6 @@ module.exports = {
     websiteUrl: 'https://beta.leaderos.net/',
     apiKey: '2d8676260ffc79145cfb0ea736ac6a27',
     language: 'tr',
-    roleSyncCachePeriod: 60, // seconds
+    roleSyncCachePeriod: 1, // seconds
   },
 };
