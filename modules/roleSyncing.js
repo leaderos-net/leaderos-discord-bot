@@ -55,9 +55,9 @@ module.exports = async (client) => {
       if (!userDataCache) return;
 
       // Remove website roles from member
-      const userRoles = await api.getUserRoles(userDataCache.id);
-      userRoles
-        .filter((role) => role.discordRoleID)
+      const roles = await api.getRoles();
+      roles
+        .filter((role) => newMemberData.roles.cache.has(role.discordRoleID))
         .forEach((role) => newMemberData.roles.remove(role.discordRoleID));
 
       // Remove user from cache

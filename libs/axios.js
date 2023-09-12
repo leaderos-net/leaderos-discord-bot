@@ -50,8 +50,14 @@ module.exports.getUserInfo = async (discordUserID) => {
   return data;
 };
 
-// Get roles
+// Get user roles
 module.exports.getUserRoles = async (userID) => {
   const { data } = await instance.get(`/api/users/${userID}/roles`);
+  return data;
+};
+
+// Get roles
+module.exports.getRoles = async () => {
+  const { data } = await instance.get(`/api/integrations/discord/roles`);
   return data;
 };
