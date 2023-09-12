@@ -41,6 +41,11 @@ module.exports = async (client) => {
 
     // Send message to ticket
     api.sendTicketMessage(ticketID, userDataCache.id, isStaff, message.content);
+
+    // Debug
+    client.logger(
+      `Ticket message sent by ${message.author.username} (${message.author.id}) to #ticket-${ticketID}`
+    );
   });
 
   // Handle on click to close ticket button
@@ -89,5 +94,10 @@ module.exports = async (client) => {
 
     // Close ticket
     api.closeTicket(ticketID);
+
+    // Debug
+    client.logger(
+      `Ticket (#ticket-${ticketID}) closed by ${interaction.user.username} (${interaction.user.id})`
+    );
   });
 };

@@ -23,6 +23,11 @@ module.exports = async (client) => {
               (tempRole) => tempRole.roleID !== role.roleID
             );
             userData.set(discordUserID, user);
+
+            // Debug
+            client.logger(
+              `Temp role (${role.roleID}) removed from ${member.user.username}`
+            );
           });
       });
 
@@ -83,8 +88,16 @@ module.exports = async (client) => {
           ) // Filter roles which have no expiry date or is not expired
           .forEach((role) => newMemberData.roles.add(role.discordRoleID));
 
+        // Debug
+        client.logger(`Roles synced for ${newMemberData.user.username}.`);
+
         if (client.settings.setNicknameStatus) {
           newMemberData.setNickname(userInfo.realname);
+
+          // Debug
+          client.logger(
+            `Nickname changed to ${userInfo.realname} for ${newMemberData.user.username}`
+          );
         }
       }
     }
@@ -112,11 +125,19 @@ module.exports = async (client) => {
         .filter((role) => newMemberData.roles.cache.has(role.discordRoleID))
         .forEach((role) => newMemberData.roles.remove(role.discordRoleID));
 
+      // Debug
+      client.logger(
+        `Synced roles removed from ${newMemberData.user.username}.`
+      );
+
       // Remove user from cache
       userData.delete(newMemberData.user.id);
 
       if (client.settings.setNicknameStatus) {
         newMemberData.setNickname('');
+
+        // Debug
+        client.logger(`Nickname removed for ${newMemberData.user.username}`);
       }
     }
   });
@@ -136,6 +157,9 @@ module.exports = async (client) => {
 
     // If everything is ok, give synced role to member
     member.roles.add(client.settings.syncedRoleID);
+
+    // Debug
+    client.logger(`Synced role added to ${newMemberData.user.username}.`);
   });
 
   // Remove user from cache when member leaves

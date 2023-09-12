@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const config = require('./config.js');
+const logger = require('./logger.js');
 const client = new Discord.Client({
   intents: [
     'DirectMessageTyping',
@@ -24,6 +25,8 @@ client.login(config.general.botToken);
 // Initialize DB
 const db = new QuickDB();
 client.db = db;
+
+client.logger = logger;
 
 // Load settings
 api.getSettings().then((data) => {
