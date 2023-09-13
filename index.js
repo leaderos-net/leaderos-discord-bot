@@ -33,6 +33,9 @@ client.on('ready', async () => {
   const db = new QuickDB();
   client.db = db;
 
+  // Initialize database data
+  if (!(await db.get('users'))) await db.set('users', {});
+
   // Load Settings
   client.settings = await api.getSettings();
 
@@ -83,9 +86,6 @@ client.on('ready', async () => {
     .then(() => {
       console.log(`${commandFiles.length} commands loaded.`);
     });
-
-  // Initialize database data
-  if (!(await db.get('users'))) await db.set('users', {});
 });
 
 // Command Handler
