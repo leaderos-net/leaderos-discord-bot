@@ -6,7 +6,8 @@ const logger = require('../utils/logger.js');
 module.exports = async (client) => {
   // Temp roles checker
   async function roleCheck() {
-    console.log(client.guild);
+    if (client.guild === undefined) return;
+
     // Get all users from cache
     const users = Object.entries(await userData.getAll());
     users
@@ -40,6 +41,8 @@ module.exports = async (client) => {
 
     setTimeout(roleCheck, 1000 * config.roleSyncCachePeriod);
   }
+
+  // Start role check loop
   roleCheck();
 
   // Handle member gets synced role

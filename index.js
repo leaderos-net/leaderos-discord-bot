@@ -21,16 +21,28 @@ const { QuickDB } = require('quick.db');
 // Access to client
 client.login(config.botToken);
 
-// Initialize DB
-const db = new QuickDB();
-client.db = db;
+// Initialize bot
+client.on('ready', async () => {
+  console.log(`BOT: Logged in as ${client.user.username}`);
 
-// Load settings
-api.getSettings().then((data) => {
-  client.settings = data;
+  // Set status
+  client.user.setStatus('idle');
+  client.user.setActivity('LEADEROS');
+
+  // Initialize DB
+  const db = new QuickDB();
+  client.db = db;
+
+  // Load Settings
+  client.settings = await api.getSettings();
+
+  // Get guild
   client.guild = client.guilds.cache.get(client.settings.guildID);
+  if (!client.guild || client.guild === undefined) {
+    console.log('BOT: Guild not found.');
+  }
 
-  // Load modules
+  // Load Modules
   const modules = [
     {
       name: 'roleSyncing',
@@ -41,7 +53,7 @@ api.getSettings().then((data) => {
       status: client.settings.ticketStatus,
     },
   ];
-  console.log(`Loading ${modules.length} modules.`);
+  console.log(`BOT: Loading ${modules.length} modules.`);
   let moduleCount = 0;
   modules.map((module) => {
     if (!module.status) return;
@@ -49,31 +61,22 @@ api.getSettings().then((data) => {
     moduleCount++;
     require(`./modules/${module.name}.js`)(client);
   });
-  console.log(`${moduleCount} modules loaded.`);
-});
+  console.log(`BOT: ${moduleCount} modules loaded.`);
 
-// Load Commands
-const commands = [];
-client.commands = new Discord.Collection();
+  // Load Commands
+  const commands = [];
+  client.commands = new Discord.Collection();
 
-const commandFiles = fs
-  .readdirSync(`${__dirname}/commands`)
-  .filter((file) => file.endsWith('.js'));
-console.log(`Loading ${commandFiles.length} commands.`);
+  const commandFiles = fs
+    .readdirSync(`${__dirname}/commands`)
+    .filter((file) => file.endsWith('.js'));
+  console.log(`BOT: Loading ${commandFiles.length} commands.`);
 
-commandFiles.map((file) => {
-  const cmd = require(`./commands/${file}`);
-  client.commands.set(cmd.data.name, cmd);
-  commands.push(cmd.data);
-});
-
-// Initialize bot
-client.on('ready', async () => {
-  console.log(`BOT: Logged in as ${client.user.username}`);
-
-  client.user.setStatus('idle');
-  client.user.setActivity('LEADEROS');
-
+  commandFiles.map((file) => {
+    const cmd = require(`./commands/${file}`);
+    client.commands.set(cmd.data.name, cmd);
+    commands.push(cmd.data);
+  });
   const rest = new Discord.REST({ version: '9' }).setToken(config.botToken);
   rest
     .put(Discord.Routes.applicationCommands(client.user.id), { body: commands })

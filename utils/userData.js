@@ -7,7 +7,7 @@ module.exports.getAll = () => {
 module.exports.get = (discordUserID) => {
   return db.get(`users.${discordUserID}`);
 };
-module.exports.add = (discordUserID, data) => {
+module.exports.set = (discordUserID, data) => {
   return db.set(`users.${discordUserID}`, data);
 };
 module.exports.delete = (discordUserID) => {
