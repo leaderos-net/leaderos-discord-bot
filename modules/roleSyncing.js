@@ -1,6 +1,7 @@
 const config = require('../config.js');
 const api = require('../libs/axios.js');
 const userData = require('../utils/userData.js');
+const logger = require('../utils/logger.js');
 
 module.exports = async (client) => {
   // Temp roles checker
@@ -11,27 +12,33 @@ module.exports = async (client) => {
     users
       .filter(([discordUserID, user]) => user.tempRoles.length > 0) // Filter users which have temp roles
       .forEach(async ([discordUserID, user]) => {
-        user.tempRoles
-          .filter((role) => new Date(role.expiryDate) < new Date()) // Filter roles which are expired
-          .forEach(async (role) => {
-            // Remove role from member
-            const member = client.guild.members.cache.get(discordUserID);
-            await member.roles.remove(role.roleID);
+        // Expired Roles
+        const expiredRoles = user.tempRoles.filter(
+          (role) => new Date(role.expiryDate) < new Date()
+        );
 
-            // Remove role from cache
-            user.tempRoles = user.tempRoles.filter(
-              (tempRole) => tempRole.roleID !== role.roleID
-            );
-            userData.set(discordUserID, user);
+        // Remove expired roles from member
+        expiredRoles.forEach(async (role) => {
+          const member = client.guild.members.cache.get(discordUserID);
+          await member.roles.remove(role.roleID);
 
-            // Debug
-            client.logger(
-              `Temp role (${role.roleID}) removed from ${member.user.username}`
-            );
-          });
+          // Debug
+          logger(
+            `Temp role (${role.roleID}) removed from ${member.user.username}`
+          );
+        });
+
+        // Remove roles from cache
+        user.tempRoles = user.tempRoles.filter(
+          (tempRole) =>
+            !expiredRoles.some(
+              (expiredRole) => expiredRole.roleID === tempRole.roleID
+            )
+        );
+        userData.set(discordUserID, user);
       });
 
-    setTimeout(roleCheck, 1000 * config.general.roleSyncCachePeriod);
+    setTimeout(roleCheck, 1000 * config.roleSyncCachePeriod);
   }
   roleCheck();
 
@@ -74,7 +81,7 @@ module.exports = async (client) => {
           );
 
         // Add user to cache
-        userData.add(newMemberData.user.id, {
+        userData.set(newMemberData.user.id, {
           id: userInfo.id,
           tempRoles,
         });
@@ -89,13 +96,13 @@ module.exports = async (client) => {
           .forEach((role) => newMemberData.roles.add(role.discordRoleID));
 
         // Debug
-        client.logger(`Roles synced for ${newMemberData.user.username}.`);
+        logger(`Roles synced for ${newMemberData.user.username}.`);
 
         if (client.settings.setNicknameStatus) {
           newMemberData.setNickname(userInfo.realname);
 
           // Debug
-          client.logger(
+          logger(
             `Nickname changed to ${userInfo.realname} for ${newMemberData.user.username}`
           );
         }
@@ -126,9 +133,7 @@ module.exports = async (client) => {
         .forEach((role) => newMemberData.roles.remove(role.discordRoleID));
 
       // Debug
-      client.logger(
-        `Synced roles removed from ${newMemberData.user.username}.`
-      );
+      logger(`Synced roles removed from ${newMemberData.user.username}.`);
 
       // Remove user from cache
       userData.delete(newMemberData.user.id);
@@ -137,7 +142,7 @@ module.exports = async (client) => {
         newMemberData.setNickname('');
 
         // Debug
-        client.logger(`Nickname removed for ${newMemberData.user.username}`);
+        logger(`Nickname removed for ${newMemberData.user.username}`);
       }
     }
   });
@@ -151,7 +156,7 @@ module.exports = async (client) => {
     if (!userInfo) return;
 
     // If user is synced on website, add user to cache
-    userData.add(member.user.id, {
+    userData.set(member.user.id, {
       id: userInfo.id,
     });
 
@@ -159,7 +164,7 @@ module.exports = async (client) => {
     member.roles.add(client.settings.syncedRoleID);
 
     // Debug
-    client.logger(`Synced role added to ${newMemberData.user.username}.`);
+    logger(`Synced role added to ${newMemberData.user.username}.`);
   });
 
   // Remove user from cache when member leaves

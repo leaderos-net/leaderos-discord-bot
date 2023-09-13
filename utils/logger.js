@@ -1,5 +1,7 @@
+const config = require('../config.js');
+
 module.exports = (message) => {
-  if (!config.general.debug) return;
+  if (!config.debug) return;
 
   console.log(`BOT: ${message}`);
 };

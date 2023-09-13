@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const config = require('./config.js');
-const logger = require('./logger.js');
 const client = new Discord.Client({
   intents: [
     'DirectMessageTyping',
@@ -20,13 +19,11 @@ const api = require('./libs/axios.js');
 const { QuickDB } = require('quick.db');
 
 // Access to client
-client.login(config.general.botToken);
+client.login(config.botToken);
 
 // Initialize DB
 const db = new QuickDB();
 client.db = db;
-
-client.logger = logger;
 
 // Load settings
 api.getSettings().then((data) => {
@@ -77,9 +74,7 @@ client.on('ready', async () => {
   client.user.setStatus('idle');
   client.user.setActivity('LEADEROS');
 
-  const rest = new Discord.REST({ version: '9' }).setToken(
-    config.general.botToken
-  );
+  const rest = new Discord.REST({ version: '9' }).setToken(config.botToken);
   rest
     .put(Discord.Routes.applicationCommands(client.user.id), { body: commands })
     .then(() => {

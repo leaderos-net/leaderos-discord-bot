@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const api = require('../libs/axios.js');
 const getTicketId = require('../utils/getTicketId.js');
 const userData = require('../utils/userData.js');
+const logger = require('../utils/logger.js');
 const t = require('../utils/getTranslation.js')();
 
 module.exports = async (client) => {
@@ -43,7 +44,7 @@ module.exports = async (client) => {
     api.sendTicketMessage(ticketID, userDataCache.id, isStaff, message.content);
 
     // Debug
-    client.logger(
+    logger(
       `Ticket message sent by ${message.author.username} (${message.author.id}) to #ticket-${ticketID}`
     );
   });
@@ -96,7 +97,7 @@ module.exports = async (client) => {
     api.closeTicket(ticketID);
 
     // Debug
-    client.logger(
+    logger(
       `Ticket (#ticket-${ticketID}) closed by ${interaction.user.username} (${interaction.user.id})`
     );
   });
