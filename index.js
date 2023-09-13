@@ -84,7 +84,7 @@ client.on('ready', async () => {
   rest
     .put(Discord.Routes.applicationCommands(client.user.id), { body: commands })
     .then(() => {
-      console.log(`${commandFiles.length} commands loaded.`);
+      console.log(`BOT: ${commandFiles.length} commands loaded.`);
     });
 });
 
