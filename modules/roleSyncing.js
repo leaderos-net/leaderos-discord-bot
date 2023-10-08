@@ -158,11 +158,6 @@ module.exports = async (client) => {
     // If user is not synced on website, do nothing
     if (!userInfo) return;
 
-    // If user is synced on website, add user to cache
-    userData.set(member.user.id, {
-      id: userInfo.id,
-    });
-
     // If everything is ok, give synced role to member
     member.roles.add(client.settings.syncedRoleID);
 
