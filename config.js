@@ -1,6 +1,5 @@
 module.exports = {
-  botToken:
-    'YOUR_BOT_TOKEN',
+  botToken: 'YOUR_BOT_TOKEN',
   websiteUrl: 'https://yourwebsite.com/',
   apiKey: 'YOUR_API_KEY',
   language: 'en',
