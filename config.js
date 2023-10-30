@@ -1,9 +1,8 @@
 module.exports = {
-  botToken:
-    'MTEyOTgzOTQyNDA4NDEyMzY3OA.GtRcs2.7LL7AuLLCOnWauMuGgVgx1B1KYiBi-CBQp8jJs',
-  websiteUrl: 'https://beta.leaderos.net/',
-  apiKey: '2d8676260ffc79145cfb0ea736ac6a27',
-  language: 'tr',
+  botToken: 'YOUR_BOT_TOKEN',
+  websiteUrl: 'https://yourwebsite.com/',
+  apiKey: 'YOUR_API_KEY',
+  language: 'en',
   debug: true,
-  roleSyncCachePeriod: 1, // seconds, recommended: 60 (per minute)
+  roleSyncCachePeriod: 60, // seconds, recommended: 60 (per minute)
 };
