@@ -18,6 +18,11 @@ const fs = require('fs');
 const api = require('./libs/axios.js');
 const { QuickDB } = require('quick.db');
 
+// Handle uncaught exceptions
+process.on('uncaughtException', function (error) {
+  console.log(error.stack);
+});
+
 // Access to client
 client.login(config.botToken);
 
