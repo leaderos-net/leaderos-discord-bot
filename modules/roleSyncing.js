@@ -162,7 +162,7 @@ module.exports = async (client) => {
     member.roles.add(client.settings.syncedRoleID);
 
     // Debug
-    logger(`Synced role added to ${newMemberData.user.username}.`);
+    logger(`Synced role added to ${member.user.username}.`);
   });
 
   // Remove user from cache when member leaves
