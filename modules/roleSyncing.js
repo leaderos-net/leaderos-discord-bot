@@ -102,7 +102,7 @@ module.exports = async (client) => {
         logger(`Roles synced for ${newMemberData.user.username}.`);
 
         if (client.settings.setNicknameStatus) {
-          newMemberData.setNickname(userInfo.realname);
+          await newMemberData.setNickname(userInfo.realname);
 
           // Debug
           logger(
@@ -142,7 +142,7 @@ module.exports = async (client) => {
       userData.delete(newMemberData.user.id);
 
       if (client.settings.setNicknameStatus) {
-        newMemberData.setNickname('');
+        await newMemberData.setNickname('');
 
         // Debug
         logger(`Nickname removed for ${newMemberData.user.username}`);
