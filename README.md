@@ -1,4 +1,8 @@
 # LeaderOS Discord Bot
+Allow players to link their accounts and roles, login with Discord account, and reply support tickets on your Discord server. It's completely Open Source!
+
+## Learn More
+[https://help.leaderos.net/free-services/discord-bot](https://help.leaderos.net/free-services/discord-bot)
 
 ## Installation
 
