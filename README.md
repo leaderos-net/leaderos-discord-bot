@@ -3,6 +3,7 @@ Allow players to link their accounts and roles, login with Discord account, and 
 
 ## Learn More
 🇺🇸 [https://help.leaderos.net/free-services/discord-bot](https://help.leaderos.net/free-services/discord-bot)
+
 🇹🇷 [https://yardim.leaderos.com.tr/free-services/discord-bot](https:/yardim.leaderos.com.tr/free-services/discord-bot)
 
 ## Installation
