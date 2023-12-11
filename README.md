@@ -4,7 +4,7 @@ Allow players to link their accounts and roles, login with Discord account, and 
 ## Learn More
 🇺🇸 English: [https://help.leaderos.net/free-services/discord-bot](https://help.leaderos.net/free-services/discord-bot)
 
-🇹🇷 Türkçe: [https://destek.leaderos.com.tr/free-services/discord-bot](https://destek.leaderos.com.tr/free-services/discord-bot)
+🇹🇷 Türkçe: [https://destek.leaderos.com.tr/uecretsiz-hizmetler/discord-bot](https://destek.leaderos.com.tr/uecretsiz-hizmetler/discord-bot)
 
 ## Installation
 
