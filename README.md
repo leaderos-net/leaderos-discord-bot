@@ -6,6 +6,11 @@ Allow players to link their accounts and roles, login with Discord account, and 
 
 🇹🇷 Türkçe: [https://destek.leaderos.com.tr/uecretsiz-hizmetler/discord-bot](https://destek.leaderos.com.tr/uecretsiz-hizmetler/discord-bot)
 
+## Requirements
+
+- Node.js 16.11.0 or newer is required.
+- Git (for using git clone command) (optional)
+
 ## Installation
 
 1. Install [Node.js](https://nodejs.org/en/download/)
