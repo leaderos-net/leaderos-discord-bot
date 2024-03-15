@@ -1,0 +1,92 @@
+{
+  "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "exported_at": "2024-03-12T09:05:57+00:00",
+  "name": "LeaderOS Discord Bot",
+  "author": "contact@leaderos.net",
+  "description": "Allow players to link their accounts and roles, login with Discord account, and reply support tickets on your Discord server.",
+  "features": null,
+  "docker_images": {
+    "Node.js 20": "ghcr.io/parkervcp/yolks:nodejs_20"
+  },
+  "file_denylist": [],
+  "startup": "npm run start",
+  "config": {
+    "files": "{}",
+    "startup": "{\r\n    \"done\": \"Bot started\"\r\n}",
+    "logs": "{\r\n    \"custom\": true,\r\n    \"location\": \"logs/latest.log\"\r\n}",
+    "stop": "^^C"
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!/bin/bash\r\napt-get update && apt-get install ca-certificates git -yq --no-install-suggests --no-install-recommends --allow-downgrades --allow-remove-essential --allow-change-held-packages\r\ncd /mnt/server\r\ngit config --global --add safe.directory /mnt/server\r\ngit clone https://github.com/leaderos-net/leaderos-discord-bot.git . || git pull\r\nnpm install\r\necho 'Installation completed successfully!'",
+      "container": "node:20-bullseye-slim",
+      "entrypoint": "bash"
+    }
+  },
+  "variables": [
+    {
+      "name": "Discord Bot Token",
+      "description": "The Bot Token you get from https://discordapp.com/developers/applications/",
+      "env_variable": "DISCORD_BOT_TOKEN",
+      "default_value": "",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "nullable|string",
+      "field_type": "text"
+    },
+    {
+      "name": "Website URL",
+      "description": "Website URL",
+      "env_variable": "WEBSITE_URL",
+      "default_value": "https://yourwebsite.com/",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "nullable|string",
+      "field_type": "text"
+    },
+    {
+      "name": "Website API Key",
+      "description": "Website API Key",
+      "env_variable": "API_KEY",
+      "default_value": "",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "nullable|string",
+      "field_type": "text"
+    },
+    {
+      "name": "Language",
+      "description": "Language of the bot. (en, tr)",
+      "env_variable": "LANGUAGE",
+      "default_value": "en",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|in:en,tr",
+      "field_type": "text"
+    },
+    {
+      "name": "Debug Mode",
+      "description": "Enable or disable debug mode.",
+      "env_variable": "DEBUG",
+      "default_value": "true",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|in:false,true",
+      "field_type": "text"
+    },
+    {
+      "name": "Role Sync Cache Period",
+      "description": "Role Sync Cache Period in seconds.",
+      "env_variable": "ROLE_SYNC_CACHE_PERIOD",
+      "default_value": "60",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required",
+      "field_type": "text"
+    }
+  ]
+}

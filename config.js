@@ -1,8 +1,11 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 module.exports = {
-  botToken: 'YOUR_BOT_TOKEN',
-  websiteUrl: 'https://yourwebsite.com/',
-  apiKey: 'YOUR_API_KEY',
-  language: 'en',
-  debug: true,
-  roleSyncCachePeriod: 60, // seconds, recommended: 60 (per minute)
+  botToken: process.env.DISCORD_BOT_TOKEN ?? 'YOUR_BOT_TOKEN',
+  websiteUrl: process.env.WEBSITE_URL ?? 'https://yourwebsite.com/',
+  apiKey: process.env.API_KEY ?? 'YOUR_API_KEY',
+  language: process.env.LANGUAGE ?? 'en',
+  debug: process.env.DEBUG ?? true,
+  roleSyncCachePeriod: process.env.ROLE_SYNC_CACHE_PERIOD ?? 60,
 };
