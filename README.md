@@ -1,4 +1,15 @@
 # LeaderOS Discord Bot
+Allow players to link their accounts and roles, login with Discord account, and reply support tickets on your Discord server. It's completely Open Source!
+
+## Learn More
+🇺🇸 English: [https://help.leaderos.net/free-services/discord-bot](https://help.leaderos.net/free-services/discord-bot)
+
+🇹🇷 Türkçe: [https://destek.leaderos.com.tr/uecretsiz-hizmetler/discord-bot](https://destek.leaderos.com.tr/uecretsiz-hizmetler/discord-bot)
+
+## Requirements
+
+- Node.js 16.11.0 or newer is required.
+- Git (for using git clone command) (optional)
 
 ## Installation
 
