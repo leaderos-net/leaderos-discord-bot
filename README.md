@@ -1,7 +1,9 @@
 # LeaderOS Discord Bot
+
 Allow players to link their accounts and roles, login with Discord account, and reply support tickets on your Discord server. It's completely Open Source!
 
 ## Learn More
+
 🇺🇸 English: [https://help.leaderos.net/free-services/discord-bot](https://help.leaderos.net/free-services/discord-bot)
 
 🇹🇷 Türkçe: [https://destek.leaderos.com.tr/uecretsiz-hizmetler/discord-bot](https://destek.leaderos.com.tr/uecretsiz-hizmetler/discord-bot)
@@ -35,7 +37,7 @@ cd leaderos-discord-bot
 npm install
 ```
 
-6. Configure the bot in `config.js`
+6. Rename the .env.example file to .env and configure it. (See the Configuration section below)
 
 7. Run the bot:
 
@@ -49,9 +51,11 @@ npm run start
 
 ## Configuration
 
-| Key        | Description                                                                                                                                              |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| botToken   | Your bot's token. You can find it in the [Discord Developer Portal > Applications > Your Application > Bot](https://discord.com/developers/applications) |
-| websiteUrl | Your website's URL. (https://yourdomain.com)                                                                                                             |
-| apiKey     | Your Website API key. You can find it in the Dashboard > Settings > API                                                                                  |
-| language   | The language of the bot. You can find the list of languages in the `languages` folder.                                                                   |
+| Key                    | Description                                                                                                                                              |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DISCORD_BOT_TOKEN      | Your bot's token. You can find it in the [Discord Developer Portal > Applications > Your Application > Bot](https://discord.com/developers/applications) |
+| WEBSITE_URL            | Your website's URL. (https://yourdomain.com)                                                                                                             |
+| API_KEY                | Your Website API key. You can find it in the Dashboard > Settings > API                                                                                  |
+| LANGUAGE               | The language of the bot. You can find the list of languages in the `languages` folder.                                                                   |
+| DEBUG                  | Enable or disable debug mode.                                                                                                                            |
+| ROLE_SYNC_CACHE_PERIOD | Role Sync Cache Period in seconds.                                                                                                                       |
