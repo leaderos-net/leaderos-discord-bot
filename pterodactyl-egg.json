@@ -16,8 +16,8 @@
   "startup": "npm run start",
   "config": {
     "files": "{}",
-    "startup": "{\r\n    \"done\": \"Bot started\"\r\n}",
-    "logs": "{\r\n    \"custom\": true,\r\n    \"location\": \"logs/latest.log\"\r\n}",
+    "startup": "{\r\n    \"done\": \"Bot started!\"\r\n}",
+    "logs": "{\r\n    \"custom\": true,\r\n    \"location\": \"latest.log\"\r\n}",
     "stop": "^^C"
   },
   "scripts": {
@@ -35,32 +35,32 @@
       "default_value": "",
       "user_viewable": true,
       "user_editable": true,
-      "rules": "nullable|string",
+      "rules": "required|string",
       "field_type": "text"
     },
     {
       "name": "Website URL",
-      "description": "Website URL",
+      "description": "Your website url.",
       "env_variable": "WEBSITE_URL",
       "default_value": "https://yourwebsite.com/",
       "user_viewable": true,
       "user_editable": true,
-      "rules": "nullable|string",
+      "rules": "required|string",
       "field_type": "text"
     },
     {
       "name": "Website API Key",
-      "description": "Website API Key",
+      "description": "Your website API Key. (Dashboard > Settings > API)",
       "env_variable": "API_KEY",
       "default_value": "",
       "user_viewable": true,
       "user_editable": true,
-      "rules": "nullable|string",
+      "rules": "required|string",
       "field_type": "text"
     },
     {
       "name": "Language",
-      "description": "Language of the bot. (en, tr)",
+      "description": "Language of the bot.",
       "env_variable": "LANGUAGE",
       "default_value": "en",
       "user_viewable": true,
@@ -72,10 +72,10 @@
       "name": "Debug Mode",
       "description": "Enable or disable debug mode.",
       "env_variable": "DEBUG",
-      "default_value": "true",
+      "default_value": "false",
       "user_viewable": true,
       "user_editable": true,
-      "rules": "required|in:false,true",
+      "rules": "required|string|in:true,false",
       "field_type": "text"
     },
     {
@@ -85,7 +85,7 @@
       "default_value": "60",
       "user_viewable": true,
       "user_editable": true,
-      "rules": "required",
+      "rules": "required|numeric",
       "field_type": "text"
     }
   ]
