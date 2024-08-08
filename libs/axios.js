@@ -1,5 +1,6 @@
 const axios = require('axios');
 const config = require('../config.js');
+const logger = require('../utils/logger.js');
 
 // Create axios instance
 const instance = axios.create({
@@ -7,6 +8,19 @@ const instance = axios.create({
   headers: {
     'X-API-KEY': config.apiKey,
   },
+});
+
+instance.interceptors.request.use((request) => {
+  logger('Request => ' + JSON.stringify(request, null, 2));
+  return request;
+});
+
+instance.interceptors.response.use((response) => {
+  logger(
+    `Response => \nCode: ${response.status}\nData: ` +
+      JSON.stringify(response.data, null, 2)
+  );
+  return response;
 });
 
 // Send message to support ticket

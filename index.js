@@ -17,10 +17,15 @@ const client = new Discord.Client({
 const fs = require('fs');
 const api = require('./libs/axios.js');
 const { QuickDB } = require('quick.db');
+const logger = require('./utils/logger.js');
 
 // Handle uncaught exceptions
 process.on('uncaughtException', function (error) {
   console.log(error.stack);
+});
+
+client.on('debug', (log) => {
+  logger(log);
 });
 
 // Access to client
@@ -31,7 +36,7 @@ client.on('ready', async () => {
   console.log(`BOT: Logged in as ${client.user.username}`);
 
   // Set status
-  client.user.setStatus('idle');
+  client.user.setStatus('online');
   client.user.setActivity('LEADEROS');
 
   // Initialize DB

@@ -3,5 +3,6 @@ const config = require('../config.js');
 module.exports = (message) => {
   if (!config.debug) return;
 
-  console.log(`BOT: ${message}`);
+  const date = new Date();
+  console.log(`${date} [BOT]: ${message}`);
 };
