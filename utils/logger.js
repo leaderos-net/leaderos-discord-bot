@@ -7,7 +7,7 @@ module.exports = (message) => {
     config.debug === false ||
     config.debug === 'false'
   ) {
-    return false;
+    return;
   }
 
   const date = new Date();
