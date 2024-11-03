@@ -1,5 +1,5 @@
 node_modules/
 .idea/
-json.sqlite
+userdata.json
 .DS_Store
 .env

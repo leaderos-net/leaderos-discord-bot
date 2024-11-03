@@ -16,8 +16,8 @@ const client = new Discord.Client({
 });
 const fs = require('fs');
 const api = require('./libs/axios.js');
-const { QuickDB } = require('quick.db');
 const logger = require('./utils/logger.js');
+const userData = require('./utils/userData.js');
 
 // Handle uncaught exceptions
 process.on('uncaughtException', function (error) {
@@ -39,12 +39,8 @@ client.on('ready', async () => {
   client.user.setStatus('online');
   client.user.setActivity('LEADEROS');
 
-  // Initialize DB
-  const db = new QuickDB();
-  client.db = db;
-
-  // Initialize database data
-  if (!(await db.get('users'))) await db.set('users', {});
+  // Initialize User Data
+  userData.init();
 
   // Load Settings
   client.settings = await api.getSettings();
