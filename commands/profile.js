@@ -36,7 +36,7 @@ exports.run = async (client, interaction) => {
         userInfo.credit +
         '`'
     )
-    .setThumbnail(`https://minotar.net/helm/${userInfo.realname}`)
+    .setThumbnail(userInfo.avatar)
     .setColor(1632000);
 
   interaction.reply({
